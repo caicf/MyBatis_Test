@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import com.caicf.model.User;
+import com.caicf.model.mapper.UserMapper;
 
 public class UserTest{
 
@@ -18,11 +19,12 @@ public class UserTest{
 		
 		String path="configuration.xml";
 		Reader reader=Resources.getResourceAsReader(path);
-		
 		SqlSessionFactory sessionFactory=new SqlSessionFactoryBuilder().build(reader);
 		SqlSession session=sessionFactory.openSession();
-		String statement = "com.caicf.model.UserMapper.selectUserByID";
-		User user=(User)session.selectOne(statement, 1);
+		//使用UserMapper接口进行对应的查询
+		UserMapper userMapper=session.getMapper(UserMapper.class);
+		User user=userMapper.selectUser(1);
+		session.commit();
 		System.out.println(user.getName());
 	}
 	
