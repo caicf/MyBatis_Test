@@ -1,13 +1,13 @@
 package com.test;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.caicf.model.User;
@@ -15,16 +15,41 @@ import com.caicf.model.mapper.UserMapper;
 
 public class UserTest{
 
-	@Test
-	public void saveTest() throws IOException {
-		
-		String path="configuration.xml";
-		Reader reader=Resources.getResourceAsReader(path);
-		SqlSessionFactory sessionFactory=new SqlSessionFactoryBuilder().build(reader);
-		SqlSession session=sessionFactory.openSession();
+	private String path;
+	private Reader reader;
+	private SqlSessionFactory sessionFactory;
+	private SqlSession session;
+	private UserMapper userMapper;
+	
+	@Before
+	public void before() throws Exception {
+		path="configuration.xml";
+		reader=Resources.getResourceAsReader(path);
+		sessionFactory=new SqlSessionFactoryBuilder().build(reader);
+		session=sessionFactory.openSession();
 		//使用UserMapper接口进行对应的查询
-		UserMapper userMapper=session.getMapper(UserMapper.class);
-		
+		userMapper=session.getMapper(UserMapper.class);
+	}
+	
+	/**
+	 * 动态SQL查询
+	 */
+	@Test
+	public void dynamicalSQL() {
+		//根据条件，查询部分User
+		User user=new User();
+		user.setId(80);
+		List<User> users=userMapper.selectPartUser(user);
+		for (User u: users) {
+			System.out.println(u.getId()+":"+u.getName()+":"+u.getPassword()+":"+u.getType());
+		}
+	}
+	
+	/**
+	 * 基本的CURD
+	 */
+	@Test
+	public void curdTest() {
 		//根据id查询用户
 //		User user=userMapper.selectUser(1);
 //		System.out.println(user.getName());
@@ -47,15 +72,16 @@ public class UserTest{
 //		userUpdate.setType("111");
 //		userMapper.updateUser(userUpdate);
 		
-		//查询所有User
-		List<User> users=userMapper.selectAllUser();
-		for (User user : users) {
-			System.out.println(user.getId()+":"+user.getName()+":"+user.getPassword()+":"+user.getType());
-		}
-		
-		
-		session.commit();
+//		//查询所有User
+//		List<User> users=userMapper.selectAllUser();
+//		for (User user : users) {
+//			System.out.println(user.getId()+":"+user.getName()+":"+user.getPassword()+":"+user.getType());
+//		}
 	}
 	
+	@After
+	public void after() {
+		session.commit();
+	}
 	
 }

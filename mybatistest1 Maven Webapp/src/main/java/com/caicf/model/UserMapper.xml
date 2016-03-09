@@ -10,22 +10,35 @@
 		<result property="type" column="type"/>
 	</resultMap>
 	
+	<!-- 部分查询 -->
+	<select id="selectPartUser" parameterType="User" resultMap="userResults">
+		select * from user where 1=1
+		<if test="password==null">
+			and id > #{id}
+		</if>
+	</select>
+	
+	<!-- 查询所有User -->
 	<select id="selectAllUser" resultMap="userResults">
 		select * from user
 	</select>
 
+	<!-- 根据id查询User -->
 	<select id="selectUser" parameterType="int" resultType="User">
 		select * from user where id = #{id}
 	</select>
 	
+	<!-- 插入User -->
 	<insert id="insetUser" keyProperty="id" useGeneratedKeys="true" parameterType="User" statementType="PREPARED">
 		insert into user(name,password,type) values(#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR})
 	</insert>
 	
+	<!-- 更新User -->
 	<update id="updateUser" parameterType="User">
 		update user set name=#{name},password=#{password},type=#{type} where id=#{id}
 	</update>
 	
+	<!-- 删除User -->
 	<delete id="deleteUser" parameterType="int">
 		delete from user where id = #{id}
 	</delete>
