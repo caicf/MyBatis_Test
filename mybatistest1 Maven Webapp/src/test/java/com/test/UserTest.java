@@ -24,15 +24,17 @@ public class UserTest{
 		SqlSession session=sessionFactory.openSession();
 		//使用UserMapper接口进行对应的查询
 		UserMapper userMapper=session.getMapper(UserMapper.class);
+		
+		//根据id查询用户
 //		User user=userMapper.selectUser(1);
 //		System.out.println(user.getName());
-//		
-		//INSERT语句
-		User user1=new User();
-		user1.setName("ccccc");
-		user1.setPassword("111");
-		user1.setType("ddd");
-		userMapper.insetUser(user1);
+		
+//		//INSERT语句
+//		User user1=new User();
+//		user1.setName("ccccc");
+//		user1.setPassword("111");
+//		user1.setType("ddd");
+//		userMapper.insetUser(user1);
 		
 //		//根据id删除User
 //		userMapper.deleteUser(2);
@@ -45,10 +47,13 @@ public class UserTest{
 //		userUpdate.setType("111");
 //		userMapper.updateUser(userUpdate);
 		
-//		List<User> users=userMapper.selectAllUser();
-//		for (User user : users) {
-//			System.out.println(user.getName());
-//		}
+		//查询所有User
+		List<User> users=userMapper.selectAllUser();
+		for (User user : users) {
+			System.out.println(user.getId()+":"+user.getName()+":"+user.getPassword()+":"+user.getType());
+		}
+		
+		
 		session.commit();
 	}
 	
