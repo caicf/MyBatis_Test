@@ -1,8 +1,5 @@
 package com.caicf.model;
 
-import org.apache.ibatis.type.Alias;
-
-@Alias("User1")
 public class User {
 	
 	private int id;

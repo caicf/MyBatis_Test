@@ -26,7 +26,8 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="com/caicf/model/UserMapper.xml" />
+		<mapper resource="com/caicf/model/UserMapper.xml" />   
+	<!--  			<mapper class="com.caicf.model.mapper.UserMapper"/> -->
 	</mappers>
 	
 </configuration>
