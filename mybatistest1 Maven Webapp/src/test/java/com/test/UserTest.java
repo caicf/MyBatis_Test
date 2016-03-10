@@ -1,7 +1,9 @@
 package com.test;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -32,6 +34,22 @@ public class UserTest{
 	}
 	
 	/**
+	 * 动态SQL查询,foreach标签
+	 */
+	@Test
+	public void foreachTag() {
+		
+		List<Integer> list=new ArrayList<Integer>();
+		list.add(4);
+		list.add(81);
+		list.add(86);
+		List<User> users=userMapper.selectPartUserForeach(list);
+		for (User u: users) {
+			System.out.println(u.getId()+":"+u.getName()+":"+u.getPassword()+":"+u.getType());
+		}
+	}
+	
+	/**
 	 * 动态SQL查询,where，set
 	 */
 	@Test
@@ -52,6 +70,8 @@ public class UserTest{
 		user2.setPassword("123456");
 		int result = userMapper.updateUserSet(user2);
 		System.out.println(result);
+		
+		
 	}
 	
 	/**

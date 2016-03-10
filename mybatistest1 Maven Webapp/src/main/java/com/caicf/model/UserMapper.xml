@@ -10,11 +10,24 @@
 		<result property="type" column="type"/>
 	</resultMap>
 	
+	<!-- 部分查询,foreach标签 -->
+	<select id="selectPartUserForeach" parameterType="list" resultMap="userResults">
+		select * from user 
+		<where>
+			id in 
+			<foreach collection="list" item="item" 
+					open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+	
 	<!-- 更新User,set标签 -->
 	<update id="updateUserSet" parameterType="User">
 		update user 
 		<set>
 			<if test="id!=null">password = #{password},</if>
+			<if test="name!=null">password = #{password},</if>
 		</set>
 		where id > #{id}
 	</update>

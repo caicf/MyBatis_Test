@@ -7,6 +7,13 @@ import com.caicf.model.User;
 public interface UserMapper {
 	
 	/**
+	 * 根据条件，查询部分User,where标签
+	 * @param user
+	 * @return
+	 */
+	public List<User> selectPartUserForeach(List<Integer> ids);
+	
+	/**
 	 * 更新用户,set标签
 	 * @param user
 	 */
