@@ -32,7 +32,24 @@ public class UserTest{
 	}
 	
 	/**
-	 * 动态SQL查询
+	 * 动态SQL查询,where
+	 */
+	@Test
+	public void whereSetTrim() {
+		
+		User user1=new User();
+		user1.setName("hj%");
+		user1.setId(83);
+		List<User> users=userMapper.selectPartUserWhere(user1);
+		for (User u: users) {
+			System.out.println(u.getId()+":"+u.getName()+":"+u.getPassword()+":"+u.getType());
+		}
+		
+		
+	}
+	
+	/**
+	 * 动态SQL查询,if,choose,when,otherwise
 	 */
 	@Test
 	public void dynamicalSQL() {

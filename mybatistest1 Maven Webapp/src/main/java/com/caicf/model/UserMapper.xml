@@ -10,6 +10,19 @@
 		<result property="type" column="type"/>
 	</resultMap>
 	
+	<!-- 部分查询,where标签 -->
+	<select id="selectPartUserWhere" parameterType="User" resultMap="userResults">
+		select * from user 
+		<where>
+			<if test="password==null">
+				and name like #{name}
+			</if>
+			<if test="id!=null">
+				and id > #{id}
+			</if>
+		</where>
+	</select>
+	
 	<!-- 部分查询，choose标签 -->
 	<select id="selectPartUserChoose" parameterType="User" resultMap="userResults">
 		select * from user where 1=1
