@@ -36,13 +36,23 @@ public class UserTest{
 	 */
 	@Test
 	public void dynamicalSQL() {
-		//根据条件，查询部分User
-		User user=new User();
-		user.setId(80);
-		List<User> users=userMapper.selectPartUser(user);
+//		//根据条件，查询部分User,if标签
+//		User user=new User();
+//		user.setId(82);
+//		List<User> users=userMapper.selectPartUser(user);
+//		for (User u: users) {
+//			System.out.println(u.getId()+":"+u.getName()+":"+u.getPassword()+":"+u.getType());
+//		}
+		
+		//choose标签
+		User user1=new User();
+		user1.setName("hj%");
+		user1.setType("aaa");
+		List<User> users=userMapper.selectPartUserChoose(user1);
 		for (User u: users) {
 			System.out.println(u.getId()+":"+u.getName()+":"+u.getPassword()+":"+u.getType());
 		}
+		
 	}
 	
 	/**

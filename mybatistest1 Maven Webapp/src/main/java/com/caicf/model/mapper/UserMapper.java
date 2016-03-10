@@ -7,7 +7,14 @@ import com.caicf.model.User;
 public interface UserMapper {
 	
 	/**
-	 * 根据条件，查询部分User
+	 * 根据条件，查询部分User,choose标签
+	 * @param user
+	 * @return
+	 */
+	public List<User> selectPartUserChoose(User user);
+	
+	/**
+	 * 根据条件，查询部分User,if标签
 	 * @param user
 	 * @return
 	 */
