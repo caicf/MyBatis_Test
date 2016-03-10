@@ -32,20 +32,26 @@ public class UserTest{
 	}
 	
 	/**
-	 * 动态SQL查询,where
+	 * 动态SQL查询,where，set
 	 */
 	@Test
 	public void whereSetTrim() {
 		
-		User user1=new User();
-		user1.setName("hj%");
-		user1.setId(83);
-		List<User> users=userMapper.selectPartUserWhere(user1);
-		for (User u: users) {
-			System.out.println(u.getId()+":"+u.getName()+":"+u.getPassword()+":"+u.getType());
-		}
+		//查询用户，where标签
+//		User user1=new User();
+//		user1.setName("hj%");
+//		user1.setId(83);
+//		List<User> users=userMapper.selectPartUserWhere(user1);
+//		for (User u: users) {
+//			System.out.println(u.getId()+":"+u.getName()+":"+u.getPassword()+":"+u.getType());
+//		}
 		
-		
+		//更新用户，set标签
+		User user2=new User();
+		user2.setId(83);
+		user2.setPassword("123456");
+		int result = userMapper.updateUserSet(user2);
+		System.out.println(result);
 	}
 	
 	/**

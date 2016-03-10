@@ -6,6 +6,11 @@ import com.caicf.model.User;
 
 public interface UserMapper {
 	
+	/**
+	 * 更新用户,set标签
+	 * @param user
+	 */
+	public Integer updateUserSet(User user);
 	
 	/**
 	 * 根据条件，查询部分User,where标签

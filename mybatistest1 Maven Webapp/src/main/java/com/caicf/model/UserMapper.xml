@@ -10,6 +10,15 @@
 		<result property="type" column="type"/>
 	</resultMap>
 	
+	<!-- 更新User,set标签 -->
+	<update id="updateUserSet" parameterType="User">
+		update user 
+		<set>
+			<if test="id!=null">password = #{password},</if>
+		</set>
+		where id > #{id}
+	</update>
+	
 	<!-- 部分查询,where标签 -->
 	<select id="selectPartUserWhere" parameterType="User" resultMap="userResults">
 		select * from user 
